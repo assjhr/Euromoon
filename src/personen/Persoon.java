@@ -1,4 +1,4 @@
-package Personen;
+package personen;
 
 import java.time.LocalDate;
 
@@ -50,7 +50,7 @@ abstract class Persoon {
 
     @Override
     public String toString() {
-        return "persoon{" +
+        return "Persoon{" +
                 "naam='" + naam + '\'' +
                 ", achternaam='" + achternaam + '\'' +
                 ", rijksNr='" + rijksNr + '\'' +
