@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * Deze klasse kan niet rechtstreeks geïnstantieerd worden
  * en dient als superklasse voor de klassen Passagier en Personeel.
  */
-abstract class Persoon {
+public abstract class Persoon {
 
     private String naam;
     private String achternaam;

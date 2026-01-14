@@ -26,6 +26,11 @@ public class NodigePersoneel {
     }
 
     //Methode om een bestuurder toe te wijzen
+    /**
+     * Wijst een bestuurder toe aan de reis.
+     * @param personeel het personeelslid dat bestuurder moet zijn
+     * @throws IllegalArgumentException als het personeelslid geen bestuurder is
+     */
     public void stelBestuurderIn(Personeel personeel){
 
         //controle: enkel personeel met type bestuurder mag bestuurder zijn
@@ -38,6 +43,11 @@ public class NodigePersoneel {
     }
 
     //Methode om een steward toe te voegen
+    /**
+     * Wijst een bestuurder toe aan de reis.
+     * @param personeel het personeelslid dat bestuurder moet zijn
+     * @throws IllegalArgumentException als het personeelslid geen bestuurder is
+     */
     public void voegStewardToe(Personeel personeel){
 
         // controle; enkel personeel met type steward mag toegevoegd worden
@@ -53,6 +63,7 @@ public class NodigePersoneel {
     public List<Personeel> getStewards(){
         return stewards;
     }
+
 
     public boolean isGeldigVoorVertrek(){
         boolean bestuurderAanwezig = bestuurder != null;
