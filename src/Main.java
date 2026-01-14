@@ -1,4 +1,6 @@
 import personen.Passagier;
+import personen.Personeel;
+import personen.PersoneelTypes;
 import reizen.Reis;
 import reizen.Station;
 import treinen.Klasse;
@@ -12,8 +14,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
+
 /**
  * Deze klasse bevat het startpunt van de applicatie.
  * Via een keuzemenu in de console kan de gebruiker:
@@ -26,31 +31,66 @@ import java.util.Scanner;
  */
 public class Main {
 
+
+    /**
+     * Waarom List en niet ArrayList?
+     * Best practice, je programmeert tegen de interface, flexibel voor later
+     */
     private static final List<Passagier> passagiers = new ArrayList<>();
     private static final List<Reis> reizen = new ArrayList<>();
+    private static final List<Personeel> personeelsleden = new ArrayList<>();
+
+    //* Set met alle beschikbare steden
+    //* We starten met een vaste lijst Europese steden
+    //* HashSet zorgt ervoor dat elke stad maar één keer voorkomt
+    private static final Set<String> BESCHIKBARE_STATIONS = new HashSet<>(Set.of(
+            "Brussel",
+            "Amsterdam",
+            "Londen",
+            "Berlijn",
+            "Parijs",
+            "Charleroi",
+            "Manchester",
+            "Rotterdam",
+            "Leuven",
+            "Antwerpen"
+    ));
+
+
+
+
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean running = true;
+        initialiseerPersoneel();
+        initialiseerPassagiers();
 
+        //* while-loop zodat het menu blijft terugkomen
+        //* het programma stopt pas wanneer running false wordt
         while (running) {
             toonMenu();
             String keuze = sc.nextLine().trim();
 
+            //*switch is duidelijker dan veel if/else
+            //*elke case komt overeen met één menu-optie
             switch (keuze) {
                 case "1":
                     registreerPassagier(sc);
                     break;
                 case "2":
-                    maakReisAan(sc);
+                    registreerPersoneel(sc);
                     break;
                 case "3":
-                    koppelTreinAanReis(sc);
+                    maakReisAan(sc);
                     break;
                 case "4":
-                    verkoopTicket(sc);
+                    koppelTreinAanReis(sc);
                     break;
                 case "5":
+                    verkoopTicket(sc);
+                    break;
+                case "6":
                     drukBoardinglijstAf(sc);
                     break;
                 case "0":
@@ -69,17 +109,120 @@ public class Main {
     private static void toonMenu() {
         System.out.println("\n EUROMOON MENU");
         System.out.println("1. Registreren passagier");
-        System.out.println("2. Aanmaken reis");
-        System.out.println("3. Trein koppelen aan reis");
-        System.out.println("4. Ticket verkopen aan passagier");
-        System.out.println("5. Afdrukken boardinglijst (tekstbestand)");
+        System.out.println("2. Registreren personeel");
+        System.out.println("3. Aanmaken reis");
+        System.out.println("4. Trein koppelen aan reis");
+        System.out.println("5. Ticket verkopen aan passagier");
+        System.out.println("6. Afdrukken boardinglijst (tekstbestand)");
         System.out.println("0. Stoppen");
         System.out.print("Maak een keuze: ");
     }
 
-//PASSAGIER REGISTREREN
+    // PASSAGIER REGISTREREN
     private static void registreerPassagier(Scanner sc) {
         System.out.println("\n Passagier registreren");
+
+        String naam;
+        while (true) {
+            System.out.print("Naam: ");
+            naam = sc.nextLine().trim();
+
+            if (!naam.isEmpty()) {
+                break; // naam is oké
+            }
+            System.out.println("Fout: naam mag niet leeg zijn. Probeer opnieuw.");
+        }
+
+        String achternaam;
+        while (true) {
+            System.out.print("Achternaam: ");
+            achternaam = sc.nextLine().trim();
+
+            if (!achternaam.isEmpty()) {
+                break;
+            }
+            System.out.println("Fout: achternaam mag niet leeg zijn. Probeer opnieuw.");
+        }
+
+        String rijksNr;
+        while (true) {
+            System.out.print("Rijksregisternummer: ");
+            rijksNr = sc.nextLine().trim();
+
+            if (!rijksNr.isEmpty()) {
+                break;
+            }
+            System.out.println("Fout: rijksregisternummer mag niet leeg zijn. Probeer opnieuw.");
+        }
+
+        LocalDate geboortedatum;
+        while (true) {
+            System.out.print("Geboortedatum (YYYY-MM-DD): ");
+            String datumStr = sc.nextLine().trim();
+
+            try {
+                geboortedatum = LocalDate.parse(datumStr);
+                break; // datum is geldig
+            } catch (Exception e) {
+                System.out.println("Fout: geboortedatum moet in formaat YYYY-MM-DD zijn.");
+            }
+        }
+
+        // Passagier aanmaken en opslaan
+        Passagier p = new Passagier(naam, achternaam, rijksNr, geboortedatum);
+        passagiers.add(p);
+
+        System.out.println("Passagier geregistreerd.");
+    }
+
+    private static void initialiseerPassagiers() {
+
+        passagiers.add(new Passagier(
+                "Assia",
+                "Jouhri",
+                "01010100001",
+                LocalDate.of(2001, 1, 1)
+        ));
+
+
+        System.out.println("Standaard passagiers geladen.");
+    }
+
+    //PERSONEEL REGISTREREN
+    /**
+     * Registreert een nieuwe passagier via de console.
+     *
+     * De gebruiker moet een naam, achternaam, rijksregisternummer
+     * en geboortedatum ingeven.
+     * Lege invoer is niet toegestaan en de geboortedatum
+     * moet het formaat YYYY-MM-DD volgen.
+     *
+     * @param sc Scanner die gebruikt wordt voor gebruikersinvoer
+     */
+
+    private static void initialiseerPersoneel() {
+
+        personeelsleden.add(new Personeel(
+                "Sabah",
+                "Smail",
+                "80010111111",
+                LocalDate.of(1980, 1, 1),
+                PersoneelTypes.BESTUURDER
+        ));
+
+        personeelsleden.add(new Personeel(
+                "Mariam",
+                "Jouhri",
+                "90020222222",
+                LocalDate.of(1990, 2, 2),
+                PersoneelTypes.STEWARD
+        ));
+
+    }
+
+
+    private static void registreerPersoneel(Scanner sc) {
+        System.out.println("\n//* PERSONEEL REGISTREREN");
 
         System.out.print("Naam: ");
         String naam = sc.nextLine().trim();
@@ -90,30 +233,131 @@ public class Main {
         System.out.print("Rijksregisternummer: ");
         String rijksNr = sc.nextLine().trim();
 
+        //* Controle: rijksNr mag niet leeg zijn
+        if (rijksNr.isEmpty()) {
+            System.out.println("Fout: rijksregisternummer mag niet leeg zijn.");
+            return;
+        }
+
+        //* Controle: zelfde rijksNr mag niet 2x voorkomen
+        for (Personeel p : personeelsleden) {
+            if (p.getRijksNr().equals(rijksNr)) {
+                System.out.println("Fout: dit personeelslid bestaat al.");
+                return;
+            }
+        }
+
         System.out.print("Geboortedatum (YYYY-MM-DD): ");
         String datumStr = sc.nextLine().trim();
 
+        LocalDate geboortedatum;
         try {
-            LocalDate geboortedatum = LocalDate.parse(datumStr);
-
-            Passagier p = new Passagier(naam, achternaam, rijksNr, geboortedatum);
-            passagiers.add(p);
-
-            System.out.println("Passagier geregistreerd.");
+            //* String omzetten naar LocalDate
+            geboortedatum = LocalDate.parse(datumStr);
         } catch (Exception e) {
-            System.out.println("Fout: geboortedatum moet in formaat YYYY-MM-DD zijn.");
+            System.out.println("Fout: datum moet in formaat YYYY-MM-DD zijn.");
+            return;
         }
+
+        //* Personeelstype kiezen via enum
+        System.out.println("Kies type personeel:");
+        System.out.println("1) BESTUURDER");
+        System.out.println("2) STEWARD");
+        System.out.println("3) BAGAGE_PERSONEEL");
+        System.out.print("Keuze: ");
+
+        String keuze = sc.nextLine().trim();
+
+        PersoneelTypes type;
+        switch (keuze) {
+            case "1":
+                type = PersoneelTypes.BESTUURDER;
+                break;
+            case "2":
+                type = PersoneelTypes.STEWARD;
+                break;
+            case "3":
+                type = PersoneelTypes.BAGAGE_PERSONEEL;
+                break;
+            default:
+                System.out.println("Ongeldige keuze.");
+                return;
+        }
+
+        //* Personeelsobject aanmaken
+        Personeel personeel = new Personeel(
+                naam,
+                achternaam,
+                rijksNr,
+                geboortedatum,
+                type
+        );
+
+        //* Personeel opslaan in de lijst
+        personeelsleden.add(personeel);
+
+        System.out.println("Personeelslid geregistreerd: " +
+                personeel.getNaam() + " (" + personeel.getType() + ")");
     }
 
+
     //REIS AANMAKEN
+    /**
+     * Maakt een nieuwe reis aan.
+     *
+     * De gebruiker kiest een vertrekstation, bestemmingsstation
+     * en een vertrektijd. Vertrek en bestemming mogen niet gelijk zijn.
+     * De reis wordt aangemaakt zonder trein; die kan later gekoppeld worden.
+     *
+     * @param sc Scanner voor gebruikersinvoer
+     */
     private static void maakReisAan(Scanner sc) {
-        System.out.println("\n--- Reis aanmaken ---");
+        System.out.println("\nReis aanmaken");
 
-        System.out.print("Vertrekstation: ");
-        String vertrekNaam = sc.nextLine().trim();
+        String vertrekNaam;
+        String bestemmingNaam;
 
-        System.out.print("Bestemmingsstation: ");
-        String bestemmingNaam = sc.nextLine().trim();
+        while (true) {
+            //* Vertrek- en bestemmingsstation vragen met foutcontrole
+            vertrekNaam = vraagGeldigeStad(sc, "VERTREKSTATION: \n - Brussel \n - Amsterdam \n - Londen \n - Berlijn \n - Parijs \n - Charleroi \n - Manchester \n - Rotterdam \n - Leuven \n - Antwerpen");
+            bestemmingNaam = vraagGeldigeStad(sc, "BESTEMMINGSSTATION: \n - Brussel \n - Amsterdam \n - Londen \n - Berlijn \n - Parijs \n - Charleroi \n - Manchester \n - Rotterdam \n - Leuven \n - Antwerpen");
+
+            //* Controle: vertrek en bestemming mogen niet hetzelfde zijn
+            if (vertrekNaam.equalsIgnoreCase(bestemmingNaam)) {
+                System.out.println("Fout: vertrek en bestemming mogen niet hetzelfde zijn. Probeer opnieuw.");
+                continue; // opnieuw vragen
+            }
+
+            //* Alles is geldig → loop verlaten
+            break;
+        }
+
+
+        //* Controle: lege invoer niet toegelaten
+        if (vertrekNaam.isEmpty() || bestemmingNaam.isEmpty()) {
+            System.out.println("Fout: station mag niet leeg zijn.");
+            return;
+        }
+
+//* Controle: bestaat vertrekstation in de vaste lijst?
+        if (!BESCHIKBARE_STATIONS.contains(vertrekNaam)) {
+            System.out.println("Fout: vertrekstation '" + vertrekNaam + "' is niet beschikbaar.");
+            return;
+        }
+
+//* Controle: bestaat bestemmingsstation in de vaste lijst?
+        if (!BESCHIKBARE_STATIONS.contains(bestemmingNaam)) {
+            System.out.println("Fout: bestemmingsstation '" + bestemmingNaam + "' is niet beschikbaar.");
+            return;
+        }
+
+//* Extra controle: vertrek en bestemming mogen niet hetzelfde zijn
+        if (vertrekNaam.equalsIgnoreCase(bestemmingNaam)) {
+            System.out.println("Fout: vertrek en bestemming mogen niet hetzelfde zijn.");
+            return;
+        }
+
+
 
         System.out.print("Vertrektijd (YYYY-MM-DDTHH:MM) bv. 2026-03-05T12:30: ");
         String tijdStr = sc.nextLine().trim();
@@ -127,13 +371,71 @@ public class Main {
             Reis r = new Reis(vertrek, bestemming, vertrektijd);
             reizen.add(r);
 
+            //* Steden opslaan in de HashSet (duplicaten worden genegeerd)
+            BESCHIKBARE_STATIONS.add(vertrekNaam.toLowerCase());
+            BESCHIKBARE_STATIONS.add(bestemmingNaam.toLowerCase());
+
             System.out.println("Reis aangemaakt (zonder trein gekoppeld).");
+
         } catch (Exception e) {
             System.out.println("Fout: vertrektijd moet in formaat YYYY-MM-DDTHH:MM zijn.");
         }
+
     }
 
+    //* Hulpmethode die blijft vragen tot de gebruiker een geldige stad ingeeft
+    /**
+     * Vraagt de gebruiker om een geldige stad (station) in te geven.
+     *
+     * De methode blijft de gebruiker opnieuw vragen totdat:
+     * - de invoer niet leeg is
+     * - de stad voorkomt in de lijst van beschikbare stations
+     *
+     * Deze methode wordt gebruikt bij het aanmaken van een reis
+     * om te voorkomen dat onbestaande stations ingegeven worden.
+     *
+     * @param sc Scanner die gebruikt wordt voor gebruikersinvoer
+     * @param titel Tekst die aangeeft welk station gevraagd wordt
+     *              (bv. "Vertrekstation" of "Bestemmingsstation")
+     * @return een geldige stadsnaam uit de lijst van beschikbare stations
+     */
+    private static String vraagGeldigeStad(Scanner sc, String titel) {
+
+        while (true) {
+            //* while(true) blijft lopen tot we zelf return doen
+            System.out.print(titel + ": ");
+            String stad = sc.nextLine().trim();
+
+            //* Controle: lege invoer niet toegelaten
+            if (stad.isEmpty()) {
+                System.out.println("Fout: station mag niet leeg zijn. Probeer opnieuw.");
+                continue;
+            }
+
+            //* Controle: bestaat de stad in de vaste lijst?
+            if (!BESCHIKBARE_STATIONS.contains(stad)) {
+                System.out.println("Fout: station '" + stad + "' is niet beschikbaar. Probeer opnieuw.");
+                continue;
+            }
+
+            //* Geldige invoer → methode stopt hier
+            return stad;
+        }
+    }
+
+
     //TREIN KOPPELEN AAN REIS
+    /**
+     * Koppelt een trein aan een bestaande reis.
+     *
+     * De gebruiker kiest eerst een reis en daarna het type locomotief.
+     * Op basis van dit type wordt automatisch een trein aangemaakt
+     * met het juiste aantal wagons.
+     *
+     * Een reis kan pas tickets verkopen nadat er een trein aan gekoppeld is.
+     *
+     * @param sc Scanner die gebruikt wordt voor gebruikersinvoer
+     */
     private static void koppelTreinAanReis(Scanner sc) {
         System.out.println("\n Trein koppelen aan reis ");
 
@@ -165,7 +467,18 @@ public class Main {
         System.out.println("Trein gekoppeld aan reis.");
     }
 
-//TICKET VERKOPEN
+
+    /**
+     * Verkoopt een ticket aan een passagier voor een gekozen reis.
+     *
+     * Er wordt gecontroleerd of:
+     * - er een trein gekoppeld is aan de reis
+     * - er nog vrije plaatsen zijn in de gekozen klasse
+     *
+     * Indien de verkoop niet mogelijk is, wordt een foutmelding getoond.
+     *
+     * @param sc Scanner voor gebruikersinvoer
+     */
     private static void verkoopTicket(Scanner sc) {
         System.out.println("\n Ticket verkopen ");
 
@@ -207,6 +520,21 @@ public class Main {
     }
 
 //BOARDINGLIJST NAAR BESTAND
+    /**
+     * Drukt de boardinglijst van een gekozen reis af naar een tekstbestand.
+     *
+     * De gebruiker kiest eerst een reis. Indien er geen tickets zijn
+     * voor deze reis, wordt er geen bestand aangemaakt.
+     *
+     * Het bestand krijgt als naam:
+     * vertrek_bestemming_vertrektijd.txt
+     * (bijvoorbeeld: Brussel_Parijs_2026-03-05T12-30.txt)
+     *
+     * In het bestand worden alle passagiers met een ticket voor deze reis
+     * opgelijst, samen met hun gegevens en reisklasse.
+     *
+     * @param sc Scanner die gebruikt wordt voor gebruikersinvoer
+     */
     private static void drukBoardinglijstAf(Scanner sc) {
         System.out.println("\n Boardinglijst afdrukken ");
 
@@ -250,13 +578,25 @@ public class Main {
     }
 
 //HULPFUNCTIES: KIEZEN
-
+    /**
+     * Laat de gebruiker een passagier kiezen uit de lijst van geregistreerde passagiers.
+     *
+     * De passagiers worden genummerd weergegeven in de console.
+     * De gebruiker kiest een passagier door een nummer in te geven.
+     * Bij foutieve invoer of wanneer er geen passagiers zijn,
+     * wordt null teruggegeven.
+     *
+     * @param sc Scanner die gebruikt wordt voor gebruikersinvoer
+     * @return de gekozen Passagier of null indien de keuze ongeldig is
+     */
     private static Passagier kiesPassagier(Scanner sc) {
         if (passagiers.isEmpty()) {
             System.out.println("Geen passagiers geregistreerd.");
             return null;
         }
 
+        //* For-loop om alle passagiers in de lijst te tonen
+        //* I gebruiken we om een nummer te geven aan elke passagier
         System.out.println("Kies passagier:");
         for (int i = 0; i < passagiers.size(); i++) {
             Passagier p = passagiers.get(i);
@@ -278,16 +618,34 @@ public class Main {
             return null;
         }
     }
-
+    /**
+     * Laat de gebruiker een reis kiezen uit de lijst van beschikbare reizen.
+     *
+     * De reizen worden genummerd weergegeven in de console.
+     * Indien de invoer ongeldig is, wordt null teruggegeven.
+     *
+     * @param sc Scanner voor gebruikersinvoer
+     * @return de gekozen Reis of null bij foutieve invoer
+     */
     private static Reis kiesReis(Scanner sc) {
+
+        //* Als er nog geen reizen zijn, kan de gebruiker niets kiezen
+        //* We stoppen de methode en geven null terug
         if (reizen.isEmpty()) {
             System.out.println("Geen reizen aangemaakt.");
             return null;
         }
 
         System.out.println("Kies reis:");
+
+        //* For-loop om alle reizen te tonen
+        //* I gebruiken we om de reize te nummeren
         for (int i = 0; i < reizen.size(); i++) {
+
+            //* We halen de reis op die positie i staat in de lijst
             Reis r = reizen.get(i);
+
+            //* We tonen vertrek, bestemming en vertrektijd
             System.out.println((i + 1) + ") " +
                     r.getVertrek().getNaam() + " -> " +
                     r.getBestemming().getNaam() + " | " +
