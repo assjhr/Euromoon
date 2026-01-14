@@ -1,4 +1,4 @@
-package Treinen;
+package treinen;
 
 
 // Enum die de verschillende types locomotieven definieert

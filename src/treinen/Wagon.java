@@ -1,4 +1,4 @@
-package Treinen;
+package treinen;
 
 public class Wagon {
 

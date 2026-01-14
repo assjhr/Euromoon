@@ -1,4 +1,4 @@
-package Treinen;
+package treinen;
 
 // Deze klasse stelt een locomotief voor die een trein kan aandrijven
 public class Locomotief {
