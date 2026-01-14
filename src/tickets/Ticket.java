@@ -9,7 +9,7 @@ import treinen.Klasse;
  * en bevat informatie over de gekozen reisklasse
  * (eerste of tweede klasse).
  * Tickets worden aangemaakt bij de verkoop van een reis
- * en worden gebruikt voor boarding en controle.
+ * en w orden gebruikt voor boarding en controle.
  */
 
 public class Ticket {

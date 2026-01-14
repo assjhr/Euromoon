@@ -22,7 +22,7 @@ public class Trein {
 
     //Constructor: maakt een trein aan met een bepaalde locomotief
     //De lijst van wagons start leeg, maar kan maximaal getMaxWagons wagons bevatten
-    public Trein(Locomotief locomotief) {
+    public  Trein(Locomotief locomotief) {
         this.locomotief = locomotief;
         this.wagons = new ArrayList<>(); // start met lege lijst
 

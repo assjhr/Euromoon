@@ -16,7 +16,7 @@ public class Locomotief {
     private static final int CAPACITEIT = 80;
 
     //Constructor: maakt een locomotief aan op basis van een bepaald type
-    public Locomotief(TypeLocomotief type) {
+    public  Locomotief(TypeLocomotief type) {
         this.type = type;
     }
 

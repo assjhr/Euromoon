@@ -3,7 +3,7 @@ package personen;
  * Deze enum stelt de verschillende types personeel voor
  * die aan een reis kunnen worden toegewezen.
  */
-public enum PersoneelTypes {
+public enum  PersoneelTypes {
 
     //(verplicht voor elke reis)
     BESTUURDER,

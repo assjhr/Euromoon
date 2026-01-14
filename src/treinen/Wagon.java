@@ -8,7 +8,7 @@ package treinen;
 public class Wagon {
 
     //Maximale capaciteit van deze wagon (volgens de opdracht 80 personen
-    private final int maximumCapaciteit = 80;
+    private  final int maximumCapaciteit = 80;
 
     //Klasse van deze wagon: eerste of tweede
     private Klasse klasse;

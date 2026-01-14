@@ -5,7 +5,7 @@ package treinen;
  * Elk type locomotief bepaalt het maximum aantal wagons
  * dat aan de trein gekoppeld kan worden.
  * Door gebruik te maken van een enum zijn de mogelijke types
- * vastgelegd en kan het systeem eenvoudig uitgebreid worden.
+ * vastgelegd  en kan het systeem eenvoudig uitgebreid worden.
  */
 public enum TypeLocomotief {
 

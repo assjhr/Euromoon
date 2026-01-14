@@ -192,7 +192,7 @@ public class Main {
     /**
      * Registreert een nieuwe passagier via de console.
      *
-     * De gebruiker moet een naam, achternaam, rijksregisternummer
+     * De  gebruiker moet een naam, achternaam, rijksregisternummer
      * en geboortedatum ingeven.
      * Lege invoer is niet toegestaan en de geboortedatum
      * moet het formaat YYYY-MM-DD volgen.

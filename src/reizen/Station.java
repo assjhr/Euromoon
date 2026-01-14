@@ -20,7 +20,7 @@ public class Station {
 
     @Override
     public String toString() {
-        return "Station{" +
+        return  "Station{" +
                 "naam='" + naam + '\'' +
                 '}';
     }

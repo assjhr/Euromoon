@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 public abstract class Persoon {
 
-    private String naam;
+    private  String naam;
     private String achternaam;
     private String rijksNr;
     private LocalDate geboortedatum;

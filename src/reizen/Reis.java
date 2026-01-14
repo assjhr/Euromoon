@@ -11,7 +11,7 @@ import treinen.Klasse;
 /**
  * Deze klasse stelt een reis voor tussen twee stations.
  * Een reis heeft een vertrekstation, een bestemmingsstation
- * en een vertrektijd.
+ * en een vertrektijd  .
  * Aan een reis kan later een trein gekoppeld worden en
  * wordt het nodige personeel toegewezen.
  * Daarnaast houdt deze klasse alle verkochte tickets bij

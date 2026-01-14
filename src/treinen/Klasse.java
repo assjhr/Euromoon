@@ -4,7 +4,7 @@ package treinen;
  * Een ticket of wagon kan behoren tot
  * de eerste of tweede klasse.
  */
-public enum Klasse {
+public enum  Klasse {
 
     EERSTE_KLASSE,
     TWEEDE_KLASSE;

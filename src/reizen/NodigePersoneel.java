@@ -17,7 +17,7 @@ import java.util.List;
  * personeel met het juiste type kan worden toegevoegd.
  */
 public class NodigePersoneel {
-    private Personeel bestuurder;
+    private  Personeel bestuurder;
 
     private List<Personeel> stewards;
 

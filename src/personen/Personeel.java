@@ -9,7 +9,7 @@ import java.util.List;
  * zoals een bestuurder, steward of bagagepersoneel,
  * en kan beschikken over verschillende certificaten.
  */
-public class Personeel extends Persoon {
+public class  Personeel extends Persoon {
 
     //Het type personeel
     private PersoneelTypes type;
