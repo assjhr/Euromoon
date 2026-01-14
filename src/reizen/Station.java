@@ -1,5 +1,9 @@
 package reizen;
-
+/**
+ * Deze klasse stelt een station voor.
+ * Een station heeft een naam en wordt gebruikt
+ * als vertrek- of bestemmingspunt van een reis.
+ */
 public class Station {
 
     // De naam van het station

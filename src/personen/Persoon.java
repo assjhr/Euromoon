@@ -1,7 +1,14 @@
 package personen;
 
 import java.time.LocalDate;
-
+/**
+ * Deze abstracte klasse stelt een persoon voor binnen het systeem.
+ * Een persoon bevat de gemeenschappelijke gegevens die gelden
+ * voor alle types personen, zoals naam, achternaam,
+ * rijksregisternummer en geboortedatum.
+ * Deze klasse kan niet rechtstreeks geïnstantieerd worden
+ * en dient als superklasse voor de klassen Passagier en Personeel.
+ */
 abstract class Persoon {
 
     private String naam;

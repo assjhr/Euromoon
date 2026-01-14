@@ -3,7 +3,15 @@ package treinen;
 import java.util.ArrayList;
 import java.util.List;
 
-//Een trein bestaat uit 1 locomotief en een lijst wagons
+/**
+ * Deze klasse stelt een trein voor.
+ * Een trein bestaat uit één locomotief en een lijst van wagons.
+ * Het type van de locomotief bepaalt hoeveel wagons de trein heeft.
+ * De totale capaciteit van de trein bedraagt 80 personen en wordt
+ * verdeeld over de wagons van eerste en tweede klasse.
+ * Deze klasse berekent ook de beschikbare capaciteit per reisklasse
+ * en wordt gebruikt bij de verkoop van tickets.
+ */
 public class Trein {
 
     //Locomotief die de trein aandrijft

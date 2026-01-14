@@ -3,6 +3,14 @@ package tickets;
 import personen.Passagier;
 import reizen.Reis;
 import treinen.Klasse;
+/**
+ * Deze klasse stelt een ticket voor.
+ * Een ticket koppelt een passagier aan een specifieke reis
+ * en bevat informatie over de gekozen reisklasse
+ * (eerste of tweede klasse).
+ * Tickets worden aangemaakt bij de verkoop van een reis
+ * en worden gebruikt voor boarding en controle.
+ */
 
 public class Ticket {
 

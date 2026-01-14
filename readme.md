@@ -53,8 +53,6 @@ Een reis:
 - minstens 1 bestuurder
 - minstens 3 stewards
 
-Tickets (tickets)
-
 Ticket
 
 Een ticket bevat:
@@ -63,7 +61,7 @@ Een ticket bevat:
 - de klasse (eerste of tweede klasse)
 - Tickets kunnen niet verkocht worden als de trein vol is in die klasse.
 
-# Ticketverkoop & validatie
+Ticketverkoop & validatie
 - Tickets worden verkocht via de Reis-klasse
 - Voor elke verkoop wordt gecontroleerd of er nog plaats is
 - Indien de trein vol is, wordt een IllegalStateException gegooid

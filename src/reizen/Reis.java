@@ -8,7 +8,16 @@ import java.util.List;
 
 import tickets.Ticket;
 import treinen.Klasse;
-
+/**
+ * Deze klasse stelt een reis voor tussen twee stations.
+ * Een reis heeft een vertrekstation, een bestemmingsstation
+ * en een vertrektijd.
+ * Aan een reis kan later een trein gekoppeld worden en
+ * wordt het nodige personeel toegewezen.
+ * Daarnaast houdt deze klasse alle verkochte tickets bij
+ * en zorgt ze ervoor dat er niet meer tickets verkocht
+ * worden dan de beschikbare capaciteit van de trein.
+ */
 public class Reis {
 
     //vertrekstation
@@ -29,11 +38,11 @@ public class Reis {
     //lijst met alle verkochte tickets voor deze reis
     private List<Ticket> tickets;
 
-    public Reis(Station vertrek, Station bestemming, LocalDateTime vertrektijd, Trein trein) {
+    public Reis(Station vertrek, Station bestemming, LocalDateTime vertrektijd) {
         this.vertrek = vertrek;
         this.bestemming = bestemming;
         this.vertrektijd = vertrektijd;
-        this.trein = trein;
+        this.trein = null;
 
         // Bij elke nieuwe reis start je met een leeg personeelsobject
         // (later stel je bestuurder in en voeg je stewards toe)
@@ -75,10 +84,17 @@ public class Reis {
         return tickets;
     }
 
+    public void setTrein(Trein trein) {
+        this.trein = trein;
+    }
+
     // Verkoopt een ticket voor deze reis aan een passagier in een bepaalde klasse.
 // Deze methode voorkomt dat je meer tickets verkoopt dan er plaatsen zijn.
     public Ticket verkoopTicket(Passagier passagier, Klasse klasse) {
 
+        if (trein == null) {
+            throw new IllegalStateException("Er is nog geen trein gekoppeld aan deze reis.");
+        }
         // Controle: is er nog plaats in de gekozen klasse?
         if (!heeftPlaatsVrij(klasse)) {
             // We gooien een fout zodat de CLI dit kan opvangen met try/catch

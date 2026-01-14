@@ -1,6 +1,11 @@
 package treinen;
-
-// Deze klasse stelt een locomotief voor die een trein kan aandrijven
+/**
+ * Deze klasse stelt een locomotief voor die een trein aandrijft.
+ * Het type van de locomotief bepaalt het maximum aantal wagons
+ * dat aan de trein gekoppeld kan worden.
+ * Elke locomotief heeft een vaste capaciteit van 80 personen,
+ * zoals opgelegd in de opdracht.
+ */
 public class Locomotief {
 
     //Het type van de locomotief (bepaalt o.a. het maximum aantal wagons)

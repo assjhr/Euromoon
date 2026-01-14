@@ -1,9 +1,12 @@
 package treinen;
 
-
-// Enum die de verschillende types locomotieven definieert
-// Elke locomotief heeft een maximum aantal wagons
-// Het voordeel van een enum: types zijn vastgelegd en makkelijk uit te breiden
+/**
+ * Deze enum stelt de verschillende types locomotieven voor.
+ * Elk type locomotief bepaalt het maximum aantal wagons
+ * dat aan de trein gekoppeld kan worden.
+ * Door gebruik te maken van een enum zijn de mogelijke types
+ * vastgelegd en kan het systeem eenvoudig uitgebreid worden.
+ */
 public enum TypeLocomotief {
 
     CLASS_373(12),

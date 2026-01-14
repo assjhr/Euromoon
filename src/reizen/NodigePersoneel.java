@@ -5,7 +5,17 @@ import personen.PersoneelTypes;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Deze klasse stelt het nodige personeel voor dat vereist is
+ * om een reis te laten vertrekken.
+ *
+ * Een geldige personeelsbezetting bestaat uit:
+ * - exact één bestuurder
+ * - minstens drie stewards
+ *
+ * De klasse bevat controles om te garanderen dat enkel
+ * personeel met het juiste type kan worden toegevoegd.
+ */
 public class NodigePersoneel {
     private Personeel bestuurder;
 

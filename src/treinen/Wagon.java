@@ -1,5 +1,10 @@
 package treinen;
-
+/**
+ * Deze klasse stelt een wagon van een trein voor.
+ * Elke wagon behoort tot een bepaalde reisklasse
+ * (eerste of tweede klasse) en heeft een vaste
+ * maximale capaciteit.
+ */
 public class Wagon {
 
     //Maximale capaciteit van deze wagon (volgens de opdracht 80 personen
